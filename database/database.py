@@ -1,4 +1,4 @@
 user_dict_template: dict = {'page': 1,
-                            'bookmark': set()}
+                            'bookmarks': set()}
 
 users_db: dict = {}

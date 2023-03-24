@@ -76,7 +76,7 @@ async def process_backward_press(callback: CallbackQuery):
 
 @router.callback_query(Text(text='forward'))
 async def process_forward_press(callback: CallbackQuery):
-    if users_db[callback.from_user.id]['page'] > len(book):
+    if users_db[callback.from_user.id]['page'] < len(book):
         users_db[callback.from_user.id]['page'] += 1
         text = book[users_db[callback.from_user.id]['page']]
         await callback.message.edit_text(
@@ -88,7 +88,7 @@ async def process_forward_press(callback: CallbackQuery):
     await callback.answer()
 
 
-@router.callback_query(lambda x: '/' in x.data.replace('/', '').isdigit())
+@router.callback_query(lambda x: '/' in x.data and x.data.replace('/', '').isdigit())
 async def process_page_press(callback: CallbackQuery):
     users_db[callback.from_user.id]['bookmarks'].add(
         users_db[callback.from_user.id]['page'])
